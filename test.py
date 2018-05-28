@@ -21,4 +21,11 @@ if __name__ == '__main__':
         send.assert_called_once_with([0x80, 0x10, 0x20])
         send.reset_mock()
         s.add_bytes(b'\x30\x40')
-        send.assert_called_once_with([0x80, 0x30, 0x40])
+        send.assert_called_once_with([0x30, 0x40])
+        send.reset_mock()
+        s.add_bytes(b'\x30\0')
+        send.assert_called_once_with([0x30, 0])
+        send.reset_mock()
+        s.add_bytes(b'\x90\x10\0')
+        send.assert_called_once_with([0x90, 0x10, 0])
+

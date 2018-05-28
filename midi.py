@@ -4,13 +4,15 @@ SysExEnd = 0xf7
 class Stream:
     def __init__(self):
         self.in_stat = -1
+        self.out_stat = -1
         self.data_wait = 0
         self.buf = []
 
     def add_bytes(self, dat):
         for val in dat:
             if val == SysExEnd:
-                self.send_message(self.buf + [val])
+                self.buf.append(val)
+                self.send_buffer()
                 self.buf = [SysExStart]
             elif val & 0x80:
                 self.in_stat = val
@@ -27,14 +29,25 @@ class Stream:
                     self.buf = [self.in_stat, val]
                     self.data_wait -= 1
             if not self.data_wait:
-                self.send_message(self.buf)
+                self.send_buffer()
                 self.data_wait = 0
 
     def send_message(self, mess):
         """
         Override this with your useful thing
         """
-        print(''.join(f'{dat:02x}' for dat in mess))
+        print(''.join(f'{dat:02x}' for dat in self.bytes_to_send(mess)))
+
+    def send_buffer(self):
+        assert self.buf
+        if self.buf[0] == self.out_stat:
+            self.send_message(self.buf[1:])
+        else:
+            if self.buf[0] < 0x90:
+                self.out_stat =self.buf[0]
+            else:
+                self.out_stat = -1
+            self.send_message(self.buf)
 
 
 def data_bytes(status):

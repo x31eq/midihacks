@@ -17,11 +17,8 @@ if __name__ == '__main__':
 
     s = midi.Stream()
     with mock.patch.object(s, 'send_message') as send:
-        s.add_byte(b'\x80')
-        s.add_byte(b'\x10')
-        s.add_byte(b'\x20')
-        send.assert_called_once_with(b'\x80\x10\x20')
+        s.add_bytes(b'\x80\x10\x20')
+        send.assert_called_once_with([0x80, 0x10, 0x20])
         send.reset_mock()
-        s.add_byte(b'\x30')
-        s.add_byte(b'\x40')
-        send.assert_called_once_with(b'\x80\x30\x40')
+        s.add_bytes(b'\x30\x40')
+        send.assert_called_once_with([0x80, 0x30, 0x40])

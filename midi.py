@@ -1,31 +1,34 @@
+SysExStart = 0xf0
+SysExEnd = 0xf7
+
 class Stream:
     def __init__(self):
         self.in_stat = -1
         self.data_wait = 0
-        self.buf = b''
+        self.buf = []
 
-    def add_byte(self, dat):
-        val = dat[0]
-        if val == b'\xf7':
-            self.send_message(self.buf + val)
-            self.buf = b'\xf0'
-        elif val & 0x80:
-            self.in_stat = dat
-            self.data_wait = data_bytes(val)
-            self.buf = dat
-        elif self.in_stat == b'\xf0':
-            self.buf += dat
-        elif self.data_wait:
-            self.buf += dat
-            self.data_wait -= 1
-        else:
-            self.data_wait = data_bytes(self.in_stat[0])
-            if self.data_wait:
-                self.buf = self.in_stat + dat
+    def add_bytes(self, dat):
+        for val in dat:
+            if val == SysExEnd:
+                self.send_message(self.buf + [val])
+                self.buf = [SysExStart]
+            elif val & 0x80:
+                self.in_stat = val
+                self.data_wait = data_bytes(val)
+                self.buf = [val]
+            elif self.in_stat == SysExStart:
+                self.buf.append(val)
+            elif self.data_wait:
+                self.buf.append(val)
                 self.data_wait -= 1
-        if not self.data_wait:
-            self.send_message(self.buf)
-            self.data_wait = 0
+            else:
+                self.data_wait = data_bytes(self.in_stat)
+                if self.data_wait:
+                    self.buf = [self.in_stat, val]
+                    self.data_wait -= 1
+            if not self.data_wait:
+                self.send_message(self.buf)
+                self.data_wait = 0
 
     def send_message(self, mess):
         """

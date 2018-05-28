@@ -1,3 +1,5 @@
+from unittest import mock
+
 import midi
 
 if __name__ == '__main__':
@@ -12,3 +14,14 @@ if __name__ == '__main__':
             (0xfc, 0), (0xfd, 0), (0xfe, 0), (0xff, 0),
             ]:
         assert midi.data_bytes(s) == m, f'Wrong data size for 0x{s:02x}'
+
+    s = midi.Stream()
+    with mock.patch.object(s, 'send_message') as send:
+        s.add_byte(b'\x80')
+        s.add_byte(b'\x10')
+        s.add_byte(b'\x20')
+        send.assert_called_once_with(b'\x80\x10\x20')
+        send.reset_mock()
+        s.add_byte(b'\x30')
+        s.add_byte(b'\x40')
+        send.assert_called_once_with(b'\x80\x30\x40')

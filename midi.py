@@ -36,7 +36,7 @@ class Stream:
         """
         Override this with your useful thing
         """
-        print(''.join(f'{dat:02x}' for dat in self.bytes_to_send(mess)))
+        print(''.join('%02x' % dat for dat in self.bytes_to_send(mess)))
 
     def send_buffer(self):
         assert self.buf

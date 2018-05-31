@@ -14,6 +14,6 @@ while not button_a.was_pressed():
 try:
     uart.init(31250, tx=pin1, rx=pin0)
     while not button_a.was_pressed():
-        midistream.add_bytes(uart.read(4))
+        midistream.add_bytes(uart.read(4) or [])
 finally:
     uart.init(115200)

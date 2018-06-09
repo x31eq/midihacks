@@ -1,4 +1,8 @@
-import midi
+try:
+    import midi
+except ImportError:
+    import sys
+    sys.exit(0)
 
 from microbit import button_a, sleep, uart, pin0, pin1
 from microbit import display, Image

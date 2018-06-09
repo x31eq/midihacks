@@ -1,6 +1,7 @@
 import midi
 
 from microbit import button_a, sleep, uart, pin0, pin1
+from microbit import display, Image
 
 class BitStream(midi.Stream):
     def send_message(self, mess):
@@ -13,7 +14,11 @@ while not button_a.was_pressed():
 
 try:
     uart.init(31250, tx=pin1, rx=pin0)
+    display.show(Image.NO)
     while not button_a.was_pressed():
-        midistream.add_bytes(uart.read(4) or [])
+        mess = uart.read(4)
+        if mess:
+            display.show(Image.MUSIC_CROTCHET)
+            midistream.add_bytes(mess)
 finally:
     uart.init(115200)

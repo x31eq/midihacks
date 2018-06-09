@@ -16,7 +16,7 @@ if __name__ == '__main__':
         assert midi.data_bytes(s) == m, f'Wrong data size for 0x{s:02x}'
 
     s = midi.Stream()
-    with mock.patch.object(s, 'send_message') as send:
+    with mock.patch.object(s, 'output') as send:
         s.add_bytes(b'\x80\x10\x20')
         send.assert_called_once_with([0x80, 0x10, 0x20])
         send.reset_mock()

@@ -32,23 +32,26 @@ class Stream:
                 self.send_buffer()
                 self.data_wait = 0
 
-    def send_message(self, mess):
+    def hack(self, mess):
         """
         Override this with your useful thing
         """
-        print(''.join('%02x' % dat for dat in self.bytes_to_send(mess)))
+        return [mess]
 
     def send_buffer(self):
         assert self.buf
-        if self.buf[0] == self.out_stat:
-            self.send_message(self.buf[1:])
-        else:
-            if self.buf[0] < 0x90:
-                self.out_stat =self.buf[0]
+        for mess in self.hack(self.buf):
+            if mess[0] == self.out_stat:
+                self.output(mess[1:])
             else:
-                self.out_stat = -1
-            self.send_message(self.buf)
+                if mess[0] < 0x90:
+                    self.out_stat =mess[0]
+                else:
+                    self.out_stat = -1
+                self.output(mess)
 
+    def output(mess):
+        print(''.join(f'{dat:02x}' for dat in self.bytes_to_send(mess)))
 
 def data_bytes(status):
     msb = status >> 4

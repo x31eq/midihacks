@@ -4,7 +4,7 @@ from microbit import button_a, sleep, uart, pin0, pin1
 from microbit import display, Image
 
 class BitStream(midi.Stream):
-    def send_message(self, mess):
+    def output(self, mess):
         uart.write(mess)
 
 midistream = BitStream()

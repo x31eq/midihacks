@@ -10,7 +10,7 @@ class Retuner(midi.Stream):
             pitch = (key - 60) * 12 / 29 + 60
             note = round(pitch)
             note = min(max(note, 0), 0x7f)
-            if mess[0] == 0x80 and mess[2]:
+            if mess[0] == 0x90 and mess[2]:
                 self.chan = (getattr(self, 'chan', -1) + 1) & 7
                 chan = self.chan
                 self.channel_for_key[key] = chan

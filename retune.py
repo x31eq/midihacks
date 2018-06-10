@@ -13,7 +13,7 @@ class Retuner(midi.Stream):
                 self.chan = (getattr(self, 'chan', -1) + 1) & 7
                 chan = self.chan
                 self.channel_for_note[note] = chan
-                bend = round((pitch - note) * 0x80 * 0x80 / 4) & 0x3fff
+                bend = round((pitch - note + 2) * 0x80 * 0x80 / 4) & 0x3fff
                 result = [(0xe0 + chan, bend & 0x7f, bend >> 7)]
             else:
                 chan = self.channel_for_note[note]

@@ -1,3 +1,5 @@
 MIDI and micro:bit http://www.multiwingspan.co.uk/micro.php?page=midi
 
 MIDI Tutorial https://learn.sparkfun.com/tutorials/midi-tutorial/all
+
+Pyboard MIDI https://github.com/SpotlightKid/micropython-stm-lib/tree/master/midi

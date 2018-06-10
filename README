@@ -1,0 +1,20 @@
+Code here should work for retuning a MIDI keyboard
+to 29-note equal temperament.
+
+Instructions:
+
+1. Find a MIDI UART adapter for the micro:bit
+
+2. Connect MIDI in to pin 0 and MIDI out to pin 1
+
+3. Flash "midibit.py" to the micro:bit (e.g. uflash midibit.py /media/sdb)
+
+4. Copy "midi.py" and "retune.py" over (e.g. ufs put midi.py; ufs put retune.py)
+
+5. Reset the micro:bit
+
+6. Press button A (the one on the left)
+
+7. This should be relaying and retuning now
+
+8. Press button A again to get the serial terminal back

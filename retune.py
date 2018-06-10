@@ -15,10 +15,12 @@ class Retuner(midi.Stream):
                 chan = self.chan
                 self.channel_for_key[key] = chan
                 bend = round((pitch - note + 2) * 0x80 * 0x80 / 4) & 0x3fff
-                result = [(0xe0 + chan, bend & 0x7f, bend >> 7)]
+                yield 0xe0 + chan, bend & 0x7f, bend >> 7
             else:
                 chan = self.channel_for_key[key]
-                result = []
-            return result + [(mess[0] + chan, note, mess[2])]
-
-        return [mess]
+            yield mess[0] + chan, note, mess[2]
+        elif mess[0] & 0xf0 < 0xf0 and mess[0] & 0xf == 0:
+            for chan in range(8):
+                yield [mess[0] + chan] + list(mess[1:])
+        else:
+            yield mess

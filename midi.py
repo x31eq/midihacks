@@ -51,7 +51,7 @@ class Stream:
                 self.output(mess)
 
     def output(mess):
-        print(''.join(f'{dat:02x}' for dat in self.bytes_to_send(mess)))
+        print(''.join('%02x' % dat for dat in self.bytes_to_send(mess)))
 
 def data_bytes(status):
     msb = status >> 4

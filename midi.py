@@ -45,7 +45,7 @@ class Stream:
                 self.output(mess[1:])
             else:
                 if mess[0] < 0x90:
-                    self.out_stat =mess[0]
+                    self.out_stat = mess[0]
                 else:
                     self.out_stat = -1
                 self.output(mess)

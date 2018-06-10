@@ -1,6 +1,6 @@
 import midi
 
-class Retuner(midi.stream):
+class Retuner(midi.Stream):
     def hack(self, mess):
         self.chan = (getattr(self, 'chan', 0) + 1) & 7
 

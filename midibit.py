@@ -1,5 +1,5 @@
 try:
-    import midi
+    import retune
 except ImportError:
     import sys
     sys.exit(0)
@@ -7,7 +7,7 @@ except ImportError:
 from microbit import button_a, sleep, uart, pin0, pin1
 from microbit import display, Image
 
-class BitStream(midi.Stream):
+class BitStream(retune.Stream):
     def output(self, mess):
         uart.write(bytes(mess))
 

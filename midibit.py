@@ -12,6 +12,7 @@ class BitStream(retune.Retuner):
         uart.write(bytes(mess))
 
 midistream = BitStream()
+display.show(Image.HAPPY)
 
 while not button_a.was_pressed():
     sleep(30)
@@ -28,3 +29,5 @@ except Exception as e:
     midibit_fail = e
 finally:
     uart.init(115200)
+
+display.show(Image.YES)

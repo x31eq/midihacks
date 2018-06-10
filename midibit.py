@@ -7,7 +7,7 @@ except ImportError:
 from microbit import button_a, sleep, uart, pin0, pin1
 from microbit import display, Image
 
-class BitStream(retune.Stream):
+class BitStream(retune.Retuner):
     def output(self, mess):
         uart.write(bytes(mess))
 

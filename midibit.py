@@ -9,7 +9,7 @@ from microbit import display, Image
 
 class BitStream(midi.Stream):
     def output(self, mess):
-        uart.write(mess)
+        uart.write(bytes(mess))
 
 midistream = BitStream()
 

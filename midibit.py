@@ -24,5 +24,7 @@ try:
         if mess:
             display.show(Image.MUSIC_CROTCHET)
             midistream.add_bytes(mess)
+except Exception as e:
+    midibit_fail = e
 finally:
     uart.init(115200)

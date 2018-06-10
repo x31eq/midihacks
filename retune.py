@@ -17,7 +17,7 @@ class Retuner(midi.Stream):
                 bend = round((pitch - note + 2) * 0x80 * 0x80 / 4) & 0x3fff
                 result = [(0xe0 + chan, bend & 0x7f, bend >> 7)]
             else:
-                chan = self.channel_for_note[key]
+                chan = self.channel_for_key[key]
                 result = []
             return result + [(mess[0] + chan, note, mess[2])]
 

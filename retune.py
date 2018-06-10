@@ -15,3 +15,4 @@ class Retuner(midi.stream):
                 result = []
             return result + [(mess[0] + self.chan, note, mess[2])]
 
+        return [mess]

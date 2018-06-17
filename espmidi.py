@@ -7,18 +7,23 @@ except ImportError:
 from machine import UART, Pin
 
 class ESPStream(retune.Retuner):
+    def init_esp(self):
+        self.loop = True
+        self.midiout = UART(1, 31250)
+        self.midiout.init(31250)
+        exit_pin = Pin(15, Pin.IN)
+        exit_pin.irq(
+                trigger=Pin.IRQ_FALLING,
+                handler=self.exit_event)
+
     def output(self, mess):
         self.midiout.write(bytes(mess))
 
-def exit_event(p):
-    global loop
-    loop = False
+    def exit_event(self, p):
+        self.loop = False
 
-loop = True
 
 def main():
-    exit_pin = Pin(15, Pin.IN)
-    exit_pin.irq(trigger=Pin.IRQ_FALLING, handler=exit_event)
     midistream = ESPStream()
 
     try:
@@ -32,9 +37,8 @@ def main():
         # So, we need both buses.
         midiin = UART(0, 31250)
         midiin.init(31250)
-        midistream.midiout = UART(1, 31250)
-        midistream.midiout.init(31250)
-        while loop:
+        midistream.init_esp()
+        while midistream.loop:
             mess = midiin.read(4)
             if mess:
                 midistream.add_bytes(mess)

@@ -8,7 +8,7 @@ from machine import UART, Pin
 
 class ESPStream(retune.Retuner):
     def output(self, mess):
-        self.uart.write(bytes(mess))
+        self.midiout.write(bytes(mess))
 
 def exit_event(p):
     global loop
@@ -22,14 +22,16 @@ def main():
     midistream = ESPStream()
 
     try:
-        midistream.uart = UART(0, 31250)
-        midistream.uart.init(31250)
+        midiin = UART(0, 31250)
+        midiin.init(31250)
+        midistream.midiout = UART(1, 31250)
+        midistream.midiout.init(31250)
         while loop:
-            mess = midistream.uart.read(4)
+            mess = midiin.read(4)
             if mess:
                 midistream.add_bytes(mess)
     except Exception as e:
         esp_fail = e
         raise
     finally:
-        midistream.uart.init(115200)
+        midiin.init(115200)

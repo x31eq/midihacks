@@ -14,11 +14,11 @@ def exit_event(p):
     global loop
     loop = False
 
+loop = True
 
 def main():
     exit_pin = Pin(15, Pin.IN)
     exit_pin.irq(trigger=Pin.IRQ_FALLING, handler=exit_event)
-    loop = True
     midistream = ESPStream()
 
     try:

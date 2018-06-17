@@ -1,7 +1,7 @@
 Code here should work for retuning a MIDI keyboard
 to 29-note equal temperament.
 
-Instructions:
+To run this on a BBC micro:bit:
 
 1. Find a MIDI UART adapter for the micro:bit
 
@@ -18,3 +18,29 @@ Instructions:
 7. This should be relaying and retuning now
 
 8. Press button A again to get the serial terminal back
+
+
+To run this on an ESP8266 board:
+
+1. Find a MIDI UART adapter
+
+2. Connect MIDI in to "RX" and MIDI out to pin 2
+
+3. Connect a switch (the panic button) between the 3V line and pin 15.
+
+4. Copy "espmidi.py", "midi.py" and "retune.py" over.  e.g.:
+    * Activate your Python3 virtualenv
+    * pip install adafruit-ampy
+    * ampy -p /dev/ttyUSB0 put espmidi.py
+    * ampy -p /dev/ttyUSB0 put midi.py
+    * ampy -p /dev/ttyUSB0 put retune.py
+
+5. Connect on the USB-serial terminal
+
+6. "import espmidi" and "espmidi.main()"
+
+7. Disconnect from the serial terminal (you get interference from MIDI)
+
+8. Turn on your MIDI keyboard
+
+9. Press the panic button to get the serial terminal back

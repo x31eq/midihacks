@@ -24,7 +24,7 @@ To run this on an ESP8266 board:
 
 1. Find a MIDI UART adapter
 
-2. Connect MIDI in to "RX" and MIDI out to pin 2
+2. Connect MIDI in to "RX" and MIDI out to "TX"
 
 3. Connect a switch (the panic button) between the 3V line and pin 15.
 

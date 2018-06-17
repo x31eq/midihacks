@@ -22,6 +22,14 @@ def main():
     midistream = ESPStream()
 
     try:
+        # An ESP8266 supports two UART buses:
+        # 0 can send and receive
+        # 1 can only send
+        # Micropython uses bus 0 for the serial terminal,
+        # so (on my board at least) UART can receive
+        # on the RX pin but can't transmit on TX.
+        # Bus 0 can, however, send on pin 2.
+        # So, we need both buses.
         midiin = UART(0, 31250)
         midiin.init(31250)
         midistream.midiout = UART(1, 31250)

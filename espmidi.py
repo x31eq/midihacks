@@ -42,8 +42,5 @@ def main():
             mess = midiin.read(4)
             if mess:
                 midistream.add_bytes(mess)
-    except Exception as e:
-        esp_fail = e
-        raise
     finally:
         midiin.init(115200)

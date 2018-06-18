@@ -1,6 +1,6 @@
 import midi
 
-class Retuner(midi.Stream):
+class Retuner(midi.Out):
     def hack(self, mess):
         if not hasattr(self, 'channel_for_key'):
             self.channel_for_key = bytearray(0x80)

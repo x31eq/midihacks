@@ -7,11 +7,11 @@ except ImportError:
 from microbit import button_a, sleep, uart, pin0, pin1
 from microbit import display, Image
 
-class BitStream(retune.Retuner):
+class BitOut(retune.Retuner):
     def output(self, mess):
         uart.write(bytes(mess))
 
-midistream = BitStream()
+midistream = BitOut()
 display.show(Image.HAPPY)
 
 while not button_a.was_pressed():
@@ -24,7 +24,7 @@ try:
         mess = uart.read(4)
         if mess:
             display.show(Image.MUSIC_CROTCHET)
-            midistream.add_bytes(mess)
+            midistream.write(mess)
 except Exception as e:
     midibit_fail = e
     raise

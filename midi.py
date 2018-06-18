@@ -1,14 +1,14 @@
 SysExStart = 0xf0
 SysExEnd = 0xf7
 
-class Stream:
+class Out:
     def __init__(self):
         self.in_stat = -1
         self.out_stat = -1
         self.data_wait = 0
         self.buf = []
 
-    def add_bytes(self, dat):
+    def write(self, dat):
         for val in dat:
             if val == SysExEnd:
                 self.buf.append(val)

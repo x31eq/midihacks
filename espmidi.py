@@ -6,7 +6,7 @@ except ImportError:
 
 from machine import UART, Pin
 
-class ESPStream(retune.Retuner):
+class ESPOut(retune.Retuner):
     def init_esp(self):
         self.loop = True
         self.midiout = UART(0, 31250)
@@ -24,7 +24,7 @@ class ESPStream(retune.Retuner):
 
 
 def main():
-    midistream = ESPStream()
+    midistream = ESPOut()
 
     try:
         midistream.init_esp()
@@ -32,6 +32,6 @@ def main():
         while midistream.loop:
             mess = midiin.read(4)
             if mess:
-                midistream.add_bytes(mess)
+                midistream.write(mess)
     finally:
         midiin.init(115200)

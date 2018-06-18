@@ -3,7 +3,7 @@ import sys
 
 import retune
 
-class RTStream(retune.Retuner):
+class RTOut(retune.Retuner):
     def output(self, mess):
         self.midiout.sendMessage(
                 rtmidi.MidiMessage(bytes(mess)))
@@ -26,10 +26,10 @@ if len(sys.argv) > 2:
 else:
     midiout.openVirtualPort()
 
-midistream = RTStream()
+midistream = RTOut()
 midistream.midiout = midiout
 
 while True:
     mess = midiin.getMessage()
     if mess is not None:
-        midistream.add_bytes(mess.getRawData())
+        midistream.write(mess.getRawData())

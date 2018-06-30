@@ -5,7 +5,8 @@ import retune
 
 class RTStream(retune.Retuner):
     def output(self, mess):
-        midiout.sendMessage(rtmidi.MidiMessage(bytes(mess)))
+        self.midiout.sendMessage(
+                rtmidi.MidiMessage(bytes(mess)))
 
 midiin = rtmidi.RtMidiIn()
 if len(sys.argv) > 1:

@@ -5,7 +5,7 @@ To run this on a BBC micro:bit:
 
 1. Find a MIDI UART adapter for the micro:bit
 
-2. Connect MIDI in to pin 0 and MIDI out to pin 1
+2. Connect MIDI in to pin 1 and MIDI out to pin 2
 
 3. Flash "midibit.py" to the micro:bit (e.g. uflash midibit.py /media/sdb)
 

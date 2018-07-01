@@ -4,7 +4,7 @@ except ImportError:
     import sys
     sys.exit(0)
 
-from microbit import button_a, sleep, uart, pin0, pin1
+from microbit import button_a, sleep, uart, pin1, pin2
 from microbit import display, Image
 
 class BitOut(retune.Retuner):
@@ -18,7 +18,7 @@ while not button_a.was_pressed():
     sleep(30)
 
 try:
-    uart.init(31250, tx=pin1, rx=pin0)
+    uart.init(31250, tx=pin2, rx=pin1)
     display.show(Image.NO)
     while not button_a.was_pressed():
         mess = uart.read(4)

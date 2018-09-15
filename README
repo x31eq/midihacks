@@ -1,5 +1,23 @@
 Code here should work for retuning a MIDI keyboard
 to 29-note equal temperament.
+Functionality and usability will hopefully improve.
+
+
+To run this on Linux:
+
+1. Make and activate a virtualenv with a recent Python3
+
+2. Run "pip install rtmidi"
+
+3. From "aconnect -i" and "aconnect -o" to see the MIDI devices
+
+4. Run "python rthack $IN $OUT" where
+   $IN is part of the name of a device from "aconnect -i" and
+   $OUT is part of the name of a device from "aconnect -o"
+   You can also run "python rthack" and use "aconnect" as usual.
+   Some devices are visible to aconnect but not rtmidi
+   to make things a bit more interesting.
+
 
 To run this on a BBC micro:bit:
 
